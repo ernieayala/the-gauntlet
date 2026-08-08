@@ -41,7 +41,7 @@ Foundry offers three modules alongside this one. Every one of them is optional.
 | ----------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------ |
 | [Sequencer](https://github.com/fantasycalendar/FoundryVTT-Sequencer) | Plays the effects. Nothing animates without it                                                                     |
 | [JB2A free](https://github.com/Jules-Bens-Aa/JB2A_DnD5e)          | The free animation library. Every cue this module names lives in it, so a free table sees strikes, auras and hazards animate |
-| JB2A Patreon                                                      | Roughly six times the assets under the same namespace. Where you have it, a fire strike burns and a cold one rimes  |
+| JB2A Patreon                                                      | Several times the assets under the same namespace. Where you have it, a fire strike burns and a cold one rimes      |
 
 Install none of them and the board still draws each hazard, aura and patch of terrain as a coloured
 shape. The ladder runs the same either way.
@@ -53,7 +53,7 @@ shape. The ladder runs the same either way.
 3. Drag each player's character from the Actors sidebar onto the party drop zone. The gauntlet
    touches whoever you enrol there and nobody else in the world.
 4. Pick a warband, a starting difficulty and a seed. The same seed against the same party builds the
-   same ladder every time, so a table can replay a run that went badly.
+   same ladder every time, so a table can replay a run it lost.
 5. Press **Start Run**, then **Spawn to scene**.
 6. Fight it out. Once every enemy is down the run window says so, and **Win** pays the party, levels
    them, and sets up the next rung.
