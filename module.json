@@ -1,0 +1,64 @@
+{
+  "id": "the-gauntlet",
+  "title": "The Gauntlet",
+  "description": "A level 1-to-20 encounter ladder for Pathfinder 2e Remastered: fight, level up, fight the next rung, with party-size and difficulty scaling plus environmental effects.",
+  "version": "0.1.0",
+  "compatibility": {
+    "minimum": "13.348",
+    "verified": "13.351"
+  },
+  "relationships": {
+    "systems": [
+      {
+        "id": "pf2e",
+        "type": "system",
+        "compatibility": {}
+      }
+    ],
+    "recommends": [
+      {
+        "id": "sequencer",
+        "type": "module",
+        "manifest": "https://github.com/fantasycalendar/FoundryVTT-Sequencer/releases/latest/download/module.json",
+        "reason": "Plays the JB2A effects for strikes, auras, terrain and hazards. Without it the board still draws every footprint as a coloured shape and the gauntlet runs unchanged."
+      },
+      {
+        "id": "JB2A_DnD5e",
+        "type": "module",
+        "manifest": "https://github.com/Jules-Bens-Aa/JB2A_DnD5e/releases/latest/download/module.json",
+        "reason": "The free animation library. Every cue this module ships names a path it holds, so a free table sees every strike, aura and hazard animate. Named for 5e; the assets are system-agnostic."
+      },
+      {
+        "id": "jb2a_patreon",
+        "type": "module",
+        "reason": "The Patreon library, roughly six times the assets under the same 'jb2a' namespace. Where it is present a cue takes its richer asset, so a fire strike burns and a cold one rimes. Install it through the JB2A Patreon; enabling it beside the free module is supported and JB2A merges the two."
+      }
+    ]
+  },
+  "documentTypes": {
+    "RegionBehavior": {
+      "difficultTerrain": {},
+      "unevenGround": {},
+      "hazardNotice": {},
+      "hazardTrigger": {}
+    }
+  },
+  "esmodules": [
+    "dist/module.js"
+  ],
+  "styles": [
+    "styles/gauntlet.css"
+  ],
+  "packs": [],
+  "authors": [
+    {
+      "name": "teafo"
+    }
+  ],
+  "url": "https://github.com/ernieayala/the-gauntlet",
+  "manifest": "https://github.com/ernieayala/the-gauntlet/releases/latest/download/module.json",
+  "download": "https://github.com/ernieayala/the-gauntlet/releases/latest/download/the-gauntlet.zip",
+  "readme": "https://github.com/ernieayala/the-gauntlet#readme",
+  "bugs": "https://github.com/ernieayala/the-gauntlet/issues",
+  "license": "https://github.com/ernieayala/the-gauntlet/blob/main/LICENSE"
+}

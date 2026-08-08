@@ -1,0 +1,81 @@
+# Publishes a release when you push a version tag.
+#
+# The repo holds the built module already, so nothing compiles here. The job checks
+# that module.json agrees with the tag, packs the four shipped paths into a zip
+# Foundry can install, and attaches both to a GitHub release.
+#
+#   git tag v0.1.0
+#   git push origin v0.1.0
+#
+# A tag whose version carries a suffix (v0.2.0-beta.1) publishes as a pre-release,
+# and its manifest URLs point at that tag rather than /latest/, so a GM testing it
+# does not get pulled onto the next stable build.
+
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out the tag
+        uses: actions/checkout@v4
+
+      - name: Read the version and check it against the tag
+        id: version
+        run: |
+          TAG="${GITHUB_REF#refs/tags/v}"
+          MANIFEST=$(jq -r .version module.json)
+
+          if [ "$TAG" != "$MANIFEST" ]; then
+            echo "Tag v$TAG does not match module.json version $MANIFEST."
+            echo "Run the ship script with --version $TAG, commit, then tag again."
+            exit 1
+          fi
+
+          echo "version=$TAG" >> "$GITHUB_OUTPUT"
+          case "$TAG" in
+            *-*) echo "prerelease=true" >> "$GITHUB_OUTPUT" ;;
+            *)   echo "prerelease=false" >> "$GITHUB_OUTPUT" ;;
+          esac
+
+      - name: Check the shipped paths are all present
+        run: |
+          for path in module.json dist/module.js styles/gauntlet.css assets; do
+            if [ ! -e "$path" ]; then
+              echo "Missing $path. The release would install broken."
+              exit 1
+            fi
+          done
+
+      - name: Pin the manifest URLs for a pre-release
+        if: steps.version.outputs.prerelease == 'true'
+        run: |
+          BASE="https://github.com/${GITHUB_REPOSITORY}/releases/download/v${{ steps.version.outputs.version }}"
+          jq --arg m "$BASE/module.json" --arg d "$BASE/the-gauntlet.zip" \
+            '.manifest = $m | .download = $d' module.json > module.tmp.json
+          mv module.tmp.json module.json
+
+      - name: Pack the module
+        run: |
+          zip -r -q the-gauntlet.zip module.json dist styles assets
+          echo "Packed $(du -h the-gauntlet.zip | cut -f1):"
+          unzip -l the-gauntlet.zip | tail -n 1
+
+      - name: Publish the release
+        uses: softprops/action-gh-release@v2
+        with:
+          name: The Gauntlet ${{ steps.version.outputs.version }}
+          prerelease: ${{ steps.version.outputs.prerelease == 'true' }}
+          generate_release_notes: true
+          files: |
+            module.json
+            the-gauntlet.zip

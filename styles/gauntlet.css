@@ -1,0 +1,58 @@
+/*
+ * The Gauntlet: module styling.
+ *
+ * **Two rules, and this file should stay that size.** Everything the module renders is markup Foundry
+ * already styles: `.standard-form` for the window body, `fieldset`/`legend` for a titled block,
+ * `.form-group` / `.form-fields` / `.hint` for the controls, `.form-footer` for a button row,
+ * `.notification` with `info` / `warning` / `error` / `success` for a coloured callout, and plain
+ * `<table>` for the reward trail.
+ *
+ * What is left is the one thing Foundry has no class for: a drop target has to look like one before
+ * anybody drags to it. Anything a test needs to find is a `data-` attribute, never a class, so no
+ * rule here exists to be selected on.
+ *
+ * Before adding a rule, check foundry2.css for a class that already does it.
+ */
+
+.the-gauntlet .gauntlet-drop {
+  border-style: dashed;
+}
+
+.the-gauntlet .gauntlet-drop .form-group,
+.the-gauntlet .gauntlet-encounter .form-group,
+.the-gauntlet .gauntlet-effects .form-group {
+  flex-direction: column;
+}
+
+.the-gauntlet .gauntlet-drop .form-group span,
+.the-gauntlet .gauntlet-encounter .form-group span,
+.the-gauntlet .gauntlet-effects .form-group span {
+  text-transform: capitalize;
+  text-align: end;
+}
+
+.the-gauntlet .gauntlet-drop.is-dragover {
+  border-style: solid;
+  border-color: var(--color-shadow-primary, #ff6400);
+}
+
+#the-gauntlet-run .form-footer button {
+  text-wrap: nowrap;
+}
+
+#the-gauntlet-run h4,
+#the-gauntlet-party h4,
+#the-gauntlet-vote h4 {
+  margin: 0;
+}
+
+/*
+ * The reward trail pays one row per cleared rung, so a full ladder runs twenty rows and grows the
+ * end screen past the bottom of the display. Foundry's `.scrollable` does the scrolling and the
+ * scrollbar gutter; the cap is the one thing it leaves to the caller, as Foundry's own
+ * `#setup-install-dependencies .scrollable` does. The selector takes no `.the-gauntlet` prefix
+ * because the History dialog renders the same table outside the module's window.
+ */
+.gauntlet-trail {
+  max-height: 500px;
+}

@@ -1,0 +1,8 @@
+# The release workflow builds this; it is never committed.
+the-gauntlet.zip
+
+# Editor / OS
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
