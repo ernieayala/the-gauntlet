@@ -38,11 +38,12 @@
   "documentTypes": {
     "RegionBehavior": {
       "difficultTerrain": {},
-      "unevenGround": {},
+      "checkPenalty": {},
       "hazardNotice": {},
       "hazardTrigger": {}
     }
   },
+  "socket": true,
   "esmodules": [
     "dist/module.js"
   ],

@@ -47,6 +47,19 @@
 }
 
 /*
+ * A rung's line-up runs as long as the roster the assembler drew, and a swarm rung lists enough
+ * creatures to push the Spawn row off the bottom of the display. The cap scrolls the list instead.
+ * `nowrap` holds the column the rule above sets, so a capped height cannot spill the rows sideways
+ * into a second column.
+ */
+.the-gauntlet .gauntlet-lineup {
+  max-height: 100px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  flex-wrap: nowrap;
+}
+
+/*
  * The reward trail pays one row per cleared rung, so a full ladder runs twenty rows and grows the
  * end screen past the bottom of the display. Foundry's `.scrollable` does the scrolling and the
  * scrollbar gutter; the cap is the one thing it leaves to the caller, as Foundry's own
